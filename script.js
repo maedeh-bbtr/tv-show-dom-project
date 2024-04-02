@@ -1,11 +1,21 @@
 const container = document.querySelector(".moviesContainer");
-
-const movies = [];
+const searchBar = document.querySelector("input");
 const getAPI = async (URL) => {
   try {
     const response = await fetch(URL);
     const data = await response.json();
     console.log(data);
+    const movies = data.slice(0, 12);
+    showCards(movies);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+getAPI(` https://api.tvmaze.com/shows`);
+
+const showCards = (arr) => {
+  arr.forEach((movie) => {
     const article = document.createElement("article");
     const title = document.createElement("h5");
     const genresTitle = document.createElement("p");
@@ -15,29 +25,18 @@ const getAPI = async (URL) => {
     article.append(title);
     article.append(genresTitle);
     article.append(ratingTitle);
-    title.textContent = data.name;
-    genresTitle.textContent = data.genres;
-    ratingTitle.textContent = data.rating.average;
-    article.style.backgroundImage = `url(${data.image.medium})`;
-  } catch (error) {
-    console.log(error);
-  }
-};
+    title.textContent = movie.name;
+    genresTitle.textContent = movie.genres;
+    ratingTitle.textContent = movie.rating.average;
+    article.style.backgroundImage = `url(${movie.image.medium})`;
 
-const names = [
-  "game of thrones",
-  "the vampire diaries",
-  "dark",
-  "sherlock",
-  "friends",
-  "teen wolf",
-  "bridgerton",
-  "Anne with an E",
-  "Breaking Bad",
-  "mr robot",
-  "Peaky Blinders",
-  "riverdale",
-];
-names.forEach((element) => {
-  getAPI(` https://api.tvmaze.com/singlesearch/shows?q=${element}`);
-});
+    searchBar.addEventListener("input", (e) => {
+      if (!movie.name.toLowerCase().includes(e.target.value.toLowerCase())) {
+        article.style.display = "none";
+      } else {
+        console.log(movie.name);
+        article.style.display = "flex";
+      }
+    });
+  });
+};
