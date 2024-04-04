@@ -50,6 +50,15 @@ input {
   font: 16px;
   color: white;
 }
+.dropDown {
+  background: none;
+  border: none;
+  outline: none;
+  width: 13rem;
+  font: 16px;
+  background-color: rgb(54, 54, 54);
+  color: white;
+}
 .banner {
   width: 100%;
   object-fit: cover;
@@ -136,4 +145,34 @@ footer {
 }
 .card h5 {
   z-index: 10;
+}
+.cardEpisode {
+  width: 12rem;
+  height: 20rem;
+  display: flex;
+  align-items: end;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  gap: 15px;
+}
+.tContainer {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(54, 54, 54);
+  width: 12rem;
+  height: 5rem;
+  padding-top: 10px;
+  padding-left: 10px;
+}
+.tContainer p {
+  font-size: small;
+}
+.tContainer img {
+  width: 60px;
+  height: 60px;
+  padding: 10px;
+}
+.delete {
+  opacity: 0;
 }
