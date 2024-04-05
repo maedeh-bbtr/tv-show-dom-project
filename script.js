@@ -34,7 +34,6 @@ const showCards = (arr) => {
     const title = document.createElement("h5");
     const genresTitle = document.createElement("p");
     const ratingTitle = document.createElement("p");
-    const cards = document.querySelectorAll("article");
     article.classList.add("card");
     container.append(article);
     article.append(title);
@@ -62,8 +61,9 @@ const showCards = (arr) => {
       });
     });
 
-    cards.forEach((card) => {
-      card.addEventListener("click", () => {});
+    article.addEventListener("click", () => {
+      console.log(movie.id);
+      getEpisodes(`https://api.tvmaze.com/shows/${movie.id}/episodes`);
     });
   });
 };
@@ -99,5 +99,16 @@ const showEpisodes = (arr) => {
     episodeBar.append(episodeOption);
     episodeOption.append(titleEpi);
     titleEpi.textContent = `S${episode.season}-E${episode.number} ${episode.name}`;
+    episodeOption.value = `S${episode.season}-E${episode.number} ${episode.name}`;
+
+    episodeBar.addEventListener("click", () => {
+      episodeBar.addEventListener("change", () => {
+        article.style.display = "none";
+
+        if (episodeBar.value === title.textContent) {
+          article.style.display = "flex";
+        }
+      });
+    });
   });
 };
